@@ -1,2 +1,2 @@
 # lenta_scrapping
-lenta_top words_news
+lenta_news_top words
