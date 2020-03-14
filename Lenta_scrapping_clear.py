@@ -1,23 +1,10 @@
-#!/usr/bin/env python
 # coding: utf-8
-
-# In[1]:
-
-
 import pandas as pd
 import requests
 import re
 from bs4 import BeautifulSoup
 
-
-# In[2]:
-
-
 url_list = ['https://lenta.ru/rubrics/russia/','https://lenta.ru/rubrics/world/','https://lenta.ru/rubrics/economics/','https://lenta.ru/rubrics/forces/','https://lenta.ru/rubrics/science/','https://lenta.ru/rubrics/culture/','https://lenta.ru/rubrics/sport/','https://lenta.ru/rubrics/media/','https://lenta.ru/rubrics/travel/']
-
-
-# In[3]:
-
 
 links_clear = [] 
 for url in url_list:
@@ -28,15 +15,7 @@ for url in url_list:
         link = 'https://lenta.ru' + item.find('div', {'class': 'titles'}).find('a').get('href')
         links_clear.append(link)
 
-
-# In[4]:
-
-
 links_final = [links_clear[i:i+10] for i in range(0,len(links_clear),10)] 
-
-
-# In[5]:
-
 
 News_total = []
 for i in links_final:
@@ -51,15 +30,7 @@ for i in links_final:
     News = str(News).lower()
     News_total.append(News)
 
-
-# In[6]:
-
-
 names = ['russia.csv', 'world.csv', 'economics.csv','forces.csv', 'science.csv','culture.csv','sport.csv','media.csv','travel.csv']
-
-
-# In[7]:
-
 
 final = []
 for item in News_total: 
@@ -71,12 +42,7 @@ for item in News_total:
     frequency_sorted = sorted(frequency.items(), key=lambda para:(para[1]), reverse = True)[0:20]
     final.append(frequency_sorted)
 
-
-# In[8]:
-
-
 columns = ['СЛОВО','ЧАСТОТА']
 for item in final:
     df = pd.DataFrame(item, columns=columns)
     df.to_csv(names[final.index(item)])
-
